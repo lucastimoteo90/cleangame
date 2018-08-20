@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>New Sala</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1 th:if="${sala.id == null}">New Sala</h1>
+		<h1 th:if="${sala.id != null}">Edit Sala</h1>
+		<hr />
+		<form th:action="@{/salas}" th:method="@{${sala.id == null} ? 'post' : 'put'}"
+			th:object="${sala}">
+			<input type="hidden" th:field="*{id}" /> 
+			
+				<div class="form-group"> 
+					<label for="teste">Teste</label>  
+					<input id="teste" name="teste" type="text" class="form-control" th:field="*{teste}" />  
+				</div> 
+
+			<button type="submit" class="btn btn-success">Save</button>
+			<a th:href="@{/salas}" class="btn btn-default">Back</a>
+		</form>
+	</div>
+</body>
+</html>

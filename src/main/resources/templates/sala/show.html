@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Show Sala</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1>Show Sala</h1>
+		<hr />
+		<div class="form-group"> 
+			<label for="teste">Teste: </label>  
+			<span th:text="${sala.teste}"></span> 
+		</div> 
+
+		<a th:href="@{/salas/{id}/edit(id = ${sala.id})}">Edit this record</a> <br/>
+		<a href="#">Delete this record</a> <br/>
+		<a th:href="@{/salas}">Back to list Sala</a> <br/>
+	</div>
+</body>
+</html>
