@@ -1,0 +1,97 @@
+<div ng-controller="RoomCtrl">
+
+
+    <div class="row" style="padding: 50px 50px 50px 50px">
+        <div class="col-6">
+            <div class="row ">
+                <div class="col-12">
+                    <span style="font-size: 16pt; font-weight: bold">
+                        <img src="./lib/img/gitLogo.svg" style="width: 40px"> {{activeRoom.gitUrl}}</span>
+                </div>
+            </div>
+
+
+            <div id="sourcecode">
+
+            </div>
+
+           
+
+
+        </div>
+        <div class="col-6">
+            <!--Panel do usuário //-->
+            <div class="row" style="height: 120px;border:1px solid #cccccc;">
+                <div class="col-2">
+                    <i style="cursor: pointer; padding-top: 10px" class="material-icons md-100">
+                        account_circle
+                    </i>
+                    <br>
+                </div>
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col-6">
+                            <img src="./lib/img/ico_hit.png">1
+                            <img src="./lib/img/ico_err.png">1
+                            <img src="./lib/img/ico_rank.png">#10
+                        </div>
+                        <div class="col-6" style="text-align: right">
+                            Tempo:
+                            <br> Etapa:1/10
+                        </div>
+                    </div>
+
+                    <!--Barra de dificuldade //-->
+                    <div class="row">
+                        <div class="col-12">
+                            Dificuldade:
+                            <div class="progress">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row" style="height: 10px"></div>
+            <!--Questões//-->
+            <div class="row" style="height: 380px;border:1px solid #cccccc; padding-top: 8px">
+                <div class="col-12">
+                    <!--QUESTÂO//-->
+                    <div class="row">
+                        <div class="col-12">
+                            {{ question.ask }}
+                        </div>
+                    </div>
+                    <!--BOTÂO DICAS//-->
+                    <div class="row">
+                        <div class="col-12" style="text-align: center">
+                            <span class="btn btn-success">Dica</span>
+                            <span class="btn btn-success">Dica</span>
+                            <span class="btn btn-success">Dica</span>
+                            <span class="btn btn-success">Dica</span>
+                        </div>
+                    </div>
+
+                    <!--LISTA DE ALTERNATIVAS//-->
+                    <div class="row">
+                        <div class="col-12" style="cursor: pointer; text-align: left; padding-top: 10px">
+                            <div class="list-group">
+                                <a class="list-group-item list-group-item-action">A) {{ question.alternative1 }}</a>
+                                <a class="list-group-item list-group-item-action">B) {{ question.alternative2 }}</a>
+                                <a class="list-group-item list-group-item-action">C) {{ question.alternative3 }}</a>
+                                <a class="list-group-item list-group-item-action">D) {{ question.alternative4 }}</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+</div>
