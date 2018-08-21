@@ -1,15 +1,12 @@
 app.controller('MediumRoomCtrl', function ($rootScope, $location, $scope,$RoomService, $MediumRoomService) {
   
   label = {};
-  label.newEasyRoomTitle = "New easy room";
+  label.newEasyRoomTitle = "New medium room";
   label.nameRoom = "Room name";
   label.descriptionRoom = "Room description";
   label.isPublicRoom = "Is public room?";
   label.btnCreateRoom = "Create!";
-  label.newQuestion = "New Question"
-  label.correctAlternative = "Correct alternative";
-  label.fakeAlternative = "Fake alternative";
-  label.btnInsertQuestion = "Insert question!"
+  label.git = "Git clone:"
 
   $scope.leader = {};
 
@@ -23,7 +20,7 @@ app.controller('MediumRoomCtrl', function ($rootScope, $location, $scope,$RoomSe
 
   //Corrigir
   $scope.room = $RoomService.getActiveRoom();
-  $EasyRoomService.setActiveRoom($RoomService.getActiveRoom());
+  $MediumRoomService.setActiveRoom($RoomService.getActiveRoom());
 
 
  
@@ -33,40 +30,17 @@ app.controller('MediumRoomCtrl', function ($rootScope, $location, $scope,$RoomSe
     getQuestions();
   }
  
-
-  function getQuestions(){
-    $EasyRoomService.getQuestions().then(function(response){
-      $scope.questions = response.data;
-    })
-  }
-
-  $scope.moveQuestionsTab = function(){
-    if($scope.room.id != null){
-      moveStep2()
-    }
-  }
-
   $scope.createRoom = function(room){
-    room.type = "EASY"
-    $EasyRoomService.insertNewRoom(room).then(function(response){
+    room.type = "MEDIUM"
+    $MediumRoomService.insertNewRoom(room).then(function(response){
       if(response.status==201){
-        $EasyRoomService.setActiveRoom(response.data)
+        $MediumRoomService.setActiveRoom(response.data)
         moveStep2();
       }      
     })
   }
 
-  $scope.insertQuestion = function(question){
-    question.md5correct = md5(question.correct);
-    $EasyRoomService.insertQuestion(question).then(function(response){
-       $scope.question = angular.copy($scope.leader); 
-       getQuestions()      
-    })
-  }
-
-  $scope.editQuestion = function(question){
-    $scope.question = question;
-  }
+  
 
 
 

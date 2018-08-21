@@ -39,7 +39,7 @@ app.service('$MediumRoomService', ['$http', 'ApiPath', function ($http, ApiPath)
                 Authorization: localStorage.getItem("cleangameToken")
             }
         }
-        return $http.post(ApiPath + '/easyroom/', room, config).then(function(response) {
+        return $http.post(ApiPath + '/mediumroom/', room, config).then(function(response) {
                   
              console.log("room")                     
                                   

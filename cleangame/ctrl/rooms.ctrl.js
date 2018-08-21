@@ -68,6 +68,12 @@ app.controller('RoomsCtrl', function ($rootScope, $location, $scope, $RoomServic
     $rootScope.loadMainContent('rooms/easy/create');
   }
 
+  $scope.createMediumRoom = function(){
+    $("#modalNewRoom").modal('hide');
+    $rootScope.loadMainContent('rooms/medium/create');
+  }
+
+
 
   $scope.insertNewRoom = function (room) {
     /*

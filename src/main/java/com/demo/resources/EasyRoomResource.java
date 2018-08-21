@@ -30,7 +30,6 @@ public class EasyRoomResource {
 	
 	
 	
-	
 	@RequestMapping(method=RequestMethod.GET)
 	public List<Room> list() {
 		return service.findAll();
@@ -47,9 +46,7 @@ public class EasyRoomResource {
      	return ResponseEntity.ok().body(service.findAllQuestions(id));
 	}
 	
-	/*
-	 * {id} room id -> obtem questão do usuário;
-	 * */
+	/*{id} room id -> obtem questão do usuário;*/
 	@RequestMapping(value="/{id}/question",method=RequestMethod.GET)
 	public ResponseEntity <Question> getQuestion(@PathVariable Integer id){
 		return ResponseEntity.ok().body(service.getQuestion(id));
