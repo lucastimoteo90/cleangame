@@ -53,8 +53,7 @@ public class UserResource {
 	
 	@RequestMapping(value="/rooms/admin",method=RequestMethod.GET)
 	public ResponseEntity<List<?>> findRoomsAdmin(){
-		List<?> rooms =  service.findRoomsAdmin();
-				
+		List<?> rooms =  service.findRoomsAdmin();				
 		
 		return ResponseEntity.ok().body(rooms);
 	}

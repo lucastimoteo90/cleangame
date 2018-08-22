@@ -23,11 +23,8 @@ import com.demo.security.UserSS;
 import com.demo.services.exception.AuthorizationException;
 import com.demo.services.exception.ObjectNotFoundException;
 
-
-
 @Service
 public class EasyRoomService {
-
 	@Autowired
 	private RoomRepository repository;
 	
@@ -43,7 +40,6 @@ public class EasyRoomService {
 	@Autowired
 	private AnswerRepository answerRepository;
 	
-	
 	public List<Room> findAll() {
 		return repository.findAll();
 	}
@@ -57,8 +53,7 @@ public class EasyRoomService {
 		return repository.findByNameOrDescriptionContaining(keyword,keyword);
 		//return repository.findByNameOrDescriptionLike(keyword, keyword);
 	}
-	
-	
+		
 	public List<Question> findAllQuestions(Integer id) {
 	    Optional<Room> room = repository.findById(id);
 	    return room.get().getQuestions();

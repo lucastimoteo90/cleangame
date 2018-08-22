@@ -107,7 +107,7 @@ app.controller('RoomsCtrl', function ($rootScope, $location, $scope, $RoomServic
     if(room.type == "EASY"){
       $rootScope.loadMainContent('rooms/easy/room');
     }else{
-      $rootScope.loadMainContent('medium-room');
+      $rootScope.loadMainContent('rooms/medium/medium-room');
     }
 
   }

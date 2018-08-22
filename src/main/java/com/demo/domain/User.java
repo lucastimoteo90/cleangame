@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.demo.domain.enums.Profile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -34,9 +35,11 @@ public class User implements Serializable{
 	
 	
 	@ManyToMany(mappedBy="administrators")
+	@JsonIgnore
 	private List<Room> roomsAdministrator = new ArrayList<Room>();
 	
 	@ManyToMany(mappedBy="members")
+	@JsonIgnore
 	private List<Room> roomsMember = new ArrayList<Room>();
 	
 	@ManyToMany(mappedBy="teamUsers")

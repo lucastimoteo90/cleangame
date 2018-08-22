@@ -37,9 +37,8 @@ public abstract class Room implements Serializable{
 	private String gitUrl;
 	
 	@OneToMany(mappedBy="room")
+	@JsonIgnore
 	private List<Question> questions = new ArrayList<Question>();
-	
-		
 	
 	private boolean isPublic;
 	

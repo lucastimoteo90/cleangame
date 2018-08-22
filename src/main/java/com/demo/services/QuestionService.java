@@ -45,6 +45,10 @@ public class QuestionService {
 	public List<Question> findByRoom(Room room) {
 		return repository.findByRoom(room);
 	}
+	
+	public void insert(Question question) {
+		repository.save(question);
+	}
 
 	public TipDTO getTip(Integer id) {
 

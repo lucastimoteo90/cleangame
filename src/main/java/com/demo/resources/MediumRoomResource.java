@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.demo.domain.MediumRoom;
-
+import com.demo.domain.Question;
 import com.demo.services.MediumRoomService;
 
 
@@ -38,18 +38,30 @@ public class MediumRoomResource {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<MediumRoom> insert(@RequestBody MediumRoom room){
-		room = service.insert(room);
-		
-	
-
-		
-		
-		
+		room = service.insert(room);		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(room.getId()).toUri();
 			return ResponseEntity.created(uri).body(room);
 	}
-		
 	
+	
+	@RequestMapping(value="{id}/status/",method=RequestMethod.GET)
+	public ResponseEntity<?> findStatusById(@PathVariable Integer id){
+		MediumRoom room = (MediumRoom)service.findById(id);
+		return ResponseEntity.ok().body(room);
+	}
+	
+	
+	@RequestMapping(value="/{id}/questions",method=RequestMethod.GET)
+	public ResponseEntity<List<Question>> findAllQuestions(@PathVariable Integer id){
+     	return ResponseEntity.ok().body(service.findAllQuestions(id));
+	}
+	
+	/*{id} room id -> obtem questão do usuário;*/
+	@RequestMapping(value="/{id}/question",method=RequestMethod.GET)
+	public ResponseEntity <Question> getQuestion(@PathVariable Integer id){
+		return ResponseEntity.ok().body(service.getQuestion(id));
+	}	
+		
 	/*
 	 * {id} room id -> obtem questão do usuário;
 	 * 

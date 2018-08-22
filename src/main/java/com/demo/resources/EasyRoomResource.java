@@ -28,8 +28,6 @@ public class EasyRoomResource {
 	@Autowired
 	private EasyRoomService service;
 	
-	
-	
 	@RequestMapping(method=RequestMethod.GET)
 	public List<Room> list() {
 		return service.findAll();

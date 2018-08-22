@@ -45,9 +45,9 @@ app.controller('EasyRoomCtrl', function ($rootScope, $location, $scope,$RoomServ
     $scope.panel.time = 0;  
     $EasyRoomService.getQuestion().then(function(response){
        if(response.data.id != null){
-        $scope.question = response.data;
+         $scope.question = response.data;
        }else{
-         //$rootScope.loadMainContent('rooms/easy/congratulations')
+         $rootScope.loadMainContent('rooms/easy/congratulations')
        }
        
        console.log($scope.question)
@@ -103,8 +103,7 @@ app.controller('EasyRoomCtrl', function ($rootScope, $location, $scope,$RoomServ
      alternative.md5answer = md5($scope.question.alternatives[option]);
 
      $QuestionService.markAlternative(alternative).then(function(response){
-       alternative = response.data;
-       
+       alternative = response.data;       
          loadQuestion();
        
   
@@ -164,7 +163,7 @@ app.controller('EasyRoomCtrl', function ($rootScope, $location, $scope,$RoomServ
   },1000)
 
   
- loadQuestion();
+ //loadQuestion();
  loadResume();
   //Carregamento padrão
   //$rootScope.loadTemplate('./views/productsList.template.html');

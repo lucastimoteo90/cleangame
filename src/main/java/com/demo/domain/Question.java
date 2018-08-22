@@ -53,6 +53,7 @@ public class Question implements Serializable{
 	@Column(columnDefinition = "TEXT")
 	private String code;
 	
+	private String filename;
 	
 	
 	@ManyToOne
@@ -63,7 +64,7 @@ public class Question implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy="question")
 	private List<Answer> answers = new ArrayList<>();
-	
+		
 	
 	public List<String> makeAlternatives(){
 		this.getAlternatives().add(this.getCorrect());
@@ -220,6 +221,17 @@ public class Question implements Serializable{
 
 	public void setTip2(String tip2) {
 		this.tip2 = tip2;
+	}
+
+	
+
+	public String getFilename() {
+		return filename;
+	}
+
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 
