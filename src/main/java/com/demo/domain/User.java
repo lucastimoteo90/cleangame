@@ -15,12 +15,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.demo.domain.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
+@Table(name = "Users")
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

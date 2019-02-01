@@ -3,6 +3,7 @@ package com.demo.domain;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,10 +30,15 @@ public class Answer implements Serializable{
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name="team_id")
+	private Team team;
+	
 	private Integer alternative;
 	
 	private Timestamp start;
 	
+	@Column(name="endtime")
 	private Timestamp end;
 	
 	private Boolean correct;
@@ -119,6 +125,16 @@ public class Answer implements Serializable{
 
 	public void setSkip(Boolean skip) {
 		this.skip = skip;
+	}
+
+	
+	
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 
 	@Override

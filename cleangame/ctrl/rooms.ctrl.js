@@ -1,4 +1,4 @@
-app.controller('RoomsCtrl', function ($rootScope, $location, $scope, $RoomService, $EasyRoomService) {
+app.controller('RoomsCtrl', function ($rootScope, $location, $scope, $RoomService, $EasyRoomService,$TeamService) {
   console.log("Rooms Ctrl")
 
   label = {};
@@ -17,6 +17,10 @@ app.controller('RoomsCtrl', function ($rootScope, $location, $scope, $RoomServic
   $scope.roomsAdministrator = {};
   $scope.roomsMember = {}
 
+  //Verifica se existe convite 
+  if($rootScope.invited){
+    $rootScope.loadMainContent("rooms/"+$RoomService.getActiveRoom().type.toLowerCase()+'/room');
+  }
 
 
   function getUserRoomsAdmin() {
@@ -103,12 +107,24 @@ app.controller('RoomsCtrl', function ($rootScope, $location, $scope, $RoomServic
 
   $scope.accessRoom = function(room){
     $RoomService.setActiveRoom(room);
+     
+    //Criar uma seção ou team
+    $RoomService.createTeam().then(function(response){
+      
+      $RoomService.setActiveRoom(room);
+      $TeamService.setActiveTeam(response.data);
 
-    if(room.type == "EASY"){
-      $rootScope.loadMainContent('rooms/easy/room');
-    }else{
-      $rootScope.loadMainContent('rooms/medium/medium-room');
-    }
+      if(room.type == "EASY"){
+        $rootScope.loadMainContent('rooms/easy/room');
+      }else{
+        $rootScope.loadMainContent('rooms/medium/medium-room');
+      }
+    })
+
+     
+
+
+   
 
   }
   

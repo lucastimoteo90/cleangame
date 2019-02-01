@@ -17,6 +17,7 @@ import com.demo.domain.EasyQuestion;
 import com.demo.domain.EasyRoom;
 import com.demo.domain.MediumRoom;
 import com.demo.domain.Room;
+import com.demo.domain.Team;
 import com.demo.dto.AlternativeDTO;
 import com.demo.dto.ResumeRoomDTO;
 import com.demo.services.EasyRoomService;
@@ -55,6 +56,8 @@ public class RoomResource {
 		return ResponseEntity.ok().body(resume);
 	}
 	
+	
+	
 	@RequestMapping(value="/{id}/restart",method=RequestMethod.GET)
 	public ResponseEntity<Room> restart(@PathVariable Integer id){
 		Room room = service.restart(id);
@@ -80,6 +83,15 @@ public class RoomResource {
 		alternative = service.markAlternative(alternative);
 		return ResponseEntity.ok().body(alternative);
 	}
+	
+	
+	@RequestMapping(value="/createteam/{id}",method=RequestMethod.POST)
+	public ResponseEntity<Team> createTeam(@PathVariable Integer id, @RequestBody Team team){
+		return ResponseEntity.ok().body(service.createTeam(id, team.getName()));
+	}
+	
+	
+	
 	
 	@RequestMapping(value="/easy",method=RequestMethod.POST)
 	public ResponseEntity<EasyRoom> insert(@RequestBody EasyRoom room){

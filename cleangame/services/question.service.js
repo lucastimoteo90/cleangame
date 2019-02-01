@@ -1,4 +1,4 @@
-app.service('$QuestionService', ['$http', 'ApiPath', function ($http, ApiPath) {
+app.service('$QuestionService', ['$http', 'ApiPath','$TeamService', function ($http, ApiPath, $TeamService) {
 
   
     this.markAlternative = function(alternative){
@@ -25,7 +25,7 @@ app.service('$QuestionService', ['$http', 'ApiPath', function ($http, ApiPath) {
                 Authorization: localStorage.getItem("cleangameToken")
             }
         }
-        return $http.get(ApiPath + '/question/'+question_id+'/tip', config).then(function (response) {
+        return $http.get(ApiPath + '/question/'+question_id+'/'+$TeamService.getActiveTeam().id+'/tip', config).then(function (response) {
             return response;                         
         }).catch(function (err) {
             console.log("Falha ao consultar dica...")
@@ -39,7 +39,7 @@ app.service('$QuestionService', ['$http', 'ApiPath', function ($http, ApiPath) {
                 Authorization: localStorage.getItem("cleangameToken")
             }
         }
-        return $http.get(ApiPath + '/question/'+question_id+'/skip', config).then(function (response) {
+        return $http.get(ApiPath + '/question/'+question_id+'/'+$TeamService.getActiveTeam().id+'/skip', config).then(function (response) {
             return response;                         
         }).catch(function (err) {
             console.log("Falha ao consultar dica...")

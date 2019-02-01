@@ -1,6 +1,9 @@
-app.controller('RoomCtrl', function ($rootScope, $location, $scope, $RoomService) {
+app.controller('RoomCtrl', function ($rootScope, $location, $scope, $RoomService, $SocketService) {
   console.log("Room Ctrl",$RoomService.getActiveRoom())
   
+  
+  
+
 
   $scope.activeRoom = $RoomService.getActiveRoom();
 
@@ -75,6 +78,9 @@ app.controller('RoomCtrl', function ($rootScope, $location, $scope, $RoomService
     $RoomService.setActiveRoom(room);
     $rootScope.loadMainContent(room.type+'-room');
   }
+
+
+
 
   //Carregamento padrão
   //$rootScope.loadTemplate('./views/productsList.template.html');

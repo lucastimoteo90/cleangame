@@ -48,15 +48,15 @@ public class QuestionResource {
 		return ResponseEntity.ok().body(room);
 	}
 	
-	@RequestMapping(value="/{id}/tip",method=RequestMethod.GET)
-	public ResponseEntity<TipDTO> getTip(@PathVariable Integer id){
-		TipDTO tip = service.getTip(id);
+	@RequestMapping(value="/{id}/{idteam}/tip",method=RequestMethod.GET)
+	public ResponseEntity<TipDTO> getTip(@PathVariable Integer id, @PathVariable Integer idteam){
+		TipDTO tip = service.getTip(id, idteam);
 		return ResponseEntity.ok().body(tip);
 	}
 	
-	@RequestMapping(value="/{id}/skip",method=RequestMethod.GET)
-	public ResponseEntity<SkipDTO> skip(@PathVariable Integer id){
-		SkipDTO skip = service.skip(id);
+	@RequestMapping(value="/{id}/{idteam}/skip",method=RequestMethod.GET)
+	public ResponseEntity<SkipDTO> skip(@PathVariable Integer id, @PathVariable Integer idteam){
+		SkipDTO skip = service.skip(id, idteam);
 		return ResponseEntity.ok().body(skip);
 	}
 	

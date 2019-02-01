@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.demo.domain.Answer;
 import com.demo.domain.Question;
 import com.demo.domain.Room;
+import com.demo.domain.Team;
 import com.demo.domain.User;
 import com.demo.repositories.AnswerRepository;
 
@@ -39,6 +40,41 @@ public class AnswerService {
 		return hits;
 	}
 	
+	  /*Busca respostas corretas do team*/	
+      public Integer findAnswerCorrectsTeam(Team team, Room room){		
+		Integer hits = 0;
+		for(Answer answer: repository.findAllByTeamAndCorrectTrue(team)){
+			if(answer.getQuestion().getRoom().getId() == room.getId()) {
+			  hits++;
+			}
+		}
+		
+		return hits;
+	}
+	
+     public Integer findAnswerIncorrectsTeam(Team team, Room room){
+  		Integer errors = 0;
+  		for(Answer answer: repository.findAllByTeamAndCorrectFalse(team)){
+  			if(answer.getQuestion().getRoom().getId() == room.getId()) {
+  				errors++;
+  			}
+  		}
+  		
+  		return errors;
+  	}
+     
+ 	public Integer findAnswerSkipsTeam(Team team, Room room){
+		Integer skips = 0;
+		for(Answer answer: repository.findAllByTeamAndSkipTrue(team)){
+			if(answer.getQuestion().getRoom().getId() == room.getId()) {
+				skips++;
+			}
+		}
+		
+		return skips;
+	} 
+      
+      
 	public Integer findAnswerIncorrectsRoom(User user, Room room){
 		Integer errors = 0;
 		for(Answer answer: repository.findAllByUserAndCorrectFalse(user)){
@@ -63,6 +99,10 @@ public class AnswerService {
 	
 	public List<Answer> findAnswersUserQuestions(User user, List<Question> questions ) {
 		return repository.findByUserAndQuestionIn(user, questions);
+	}
+	
+	public List<Answer> findAnswersTeamQuestions(Team team, List<Question> questions ) {
+		return repository.findByTeamAndQuestionIn(team, questions);
 	}
 	
 	

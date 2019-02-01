@@ -14,6 +14,7 @@ import com.demo.domain.EasyQuestion;
 import com.demo.domain.EasyRoom;
 import com.demo.domain.Question;
 import com.demo.domain.Room;
+import com.demo.domain.Team;
 import com.demo.domain.User;
 import com.demo.repositories.AnswerRepository;
 import com.demo.repositories.EasyQuestionRepository;
@@ -38,6 +39,9 @@ public class EasyRoomService {
 	private UserService userService;
 	
 	@Autowired
+	private TeamService teamService;
+	
+	@Autowired
 	private AnswerRepository answerRepository;
 	
 	public List<Room> findAll() {
@@ -59,15 +63,16 @@ public class EasyRoomService {
 	    return room.get().getQuestions();
 	}
 	
-	public Question getQuestion(Integer id) {
+	public Question getQuestion(Integer idRoom, Integer idTeam) {
 		UserSS userSS = UserService.authenticated();
 		if(userSS == null ) {
 			throw new AuthorizationException("Token Inválido");
 		}
 	
-		User user = userService.findById(userSS.getID());
-				
-		Optional<Room> room = repository.findById(id);
+		User user = userService.findById(userSS.getID());			
+		Team team = teamService.findById(idTeam);
+		
+		Optional<Room> room = repository.findById(idRoom);
 	    		
 		
 		List<Question> roomQuestions = room.get().getQuestions();
@@ -77,21 +82,19 @@ public class EasyRoomService {
 			
 		for(Question question: roomQuestions){
 			//Procurar se existe answer para question
-		    if(answerRepository.findByUserAndQuestion(user, question).size() == 0) {
+		    if(answerRepository.findByTeamAndQuestion(team, question).size() == 0) {
 				Answer newAnswer = new Answer();
 				newAnswer.setQuestion(question);
 				newAnswer.setUser(user);
+				newAnswer.setTeam(team);
 				newAnswer.setTips(0);
 				newAnswer.setStart(new Timestamp(System.currentTimeMillis()));
 				newAnswer = answerRepository.save(newAnswer);
 				question.setAnswer(newAnswer.getId());
 				question.makeAlternatives();
 				return question;
-			}
-			
-		    //Se existe em aberto
-		    if(answerRepository.findByUserAndQuestionAndEndIsNull(user, question).size() > 0){
-		    	question.setAnswer(answerRepository.findByUserAndQuestionAndEndIsNull(user, question).get(0).getId());
+			}else if(answerRepository.findByTeamAndQuestionAndEndIsNull(team, question).size() > 0){
+		    	question.setAnswer(answerRepository.findByTeamAndQuestionAndEndIsNull(team, question).get(0).getId());
 		    	question.makeAlternatives();
 		    	return question;
 		    }				

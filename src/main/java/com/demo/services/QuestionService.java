@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.demo.domain.Answer;
 import com.demo.domain.Question;
 import com.demo.domain.Room;
+import com.demo.domain.Team;
 import com.demo.domain.User;
 import com.demo.dto.SkipDTO;
 import com.demo.dto.TipDTO;
@@ -32,6 +33,9 @@ public class QuestionService {
 	private UserService userService;
 	
 	@Autowired
+	private TeamService teamService;
+	
+	@Autowired
 	private AnswerRepository answerRepository;
 	
 	public List<Question> findAll() {
@@ -50,7 +54,7 @@ public class QuestionService {
 		repository.save(question);
 	}
 
-	public TipDTO getTip(Integer id) {
+	public TipDTO getTip(Integer idQuestion, Integer idteam) {
 
 		TipDTO tip = new TipDTO();
 		
@@ -60,9 +64,11 @@ public class QuestionService {
 		}
 	
 		User user = userService.findById(userSS.getID());
-		Question question = repository.findById(id).get();
-        
-		Answer answer = answerRepository.findByUserAndQuestion(user, question).get(0);
+		Question question = repository.findById(idQuestion).get();
+        Team team = teamService.findById(idteam);
+		//Mudar pra team
+		
+		Answer answer = answerRepository.findByTeamAndQuestion(team, question).get(0);
 		if(answer.getTips() < 2) {
 		 answer.setTips(answer.getTips()+1);
 		}
@@ -79,7 +85,7 @@ public class QuestionService {
 			return tip;
 	}
 	
-	public SkipDTO skip(Integer id) {
+	public SkipDTO skip(Integer idQuestion, Integer idteam) {
 
 		SkipDTO skip = new SkipDTO();
 		
@@ -89,9 +95,11 @@ public class QuestionService {
 		}
 	
 		User user = userService.findById(userSS.getID());
-		Question question = repository.findById(id).get();
-        
-		Answer answer = answerRepository.findByUserAndQuestion(user, question).get(0);
+		Question question = repository.findById(idQuestion).get();
+		Team team = teamService.findById(idteam);
+		
+		
+		Answer answer = answerRepository.findByTeamAndQuestion(team, question).get(0);
 		answer.setSkip(true);
 	    answer.setEnd(new Timestamp(System.currentTimeMillis()));
 		answerRepository.save(answer);	

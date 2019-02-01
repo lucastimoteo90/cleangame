@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -40,11 +41,12 @@ public class Team implements Serializable{
 	    name = "ROOMS_TEAM",
 	    joinColumns = @JoinColumn(name = "team_id"),
 	    inverseJoinColumns = @JoinColumn(name = "room_id")
-	)
+	)	
 	@JsonIgnore
-	private List<User> teamRooms = new ArrayList<User>();
+	private List<Room> teamRooms = new ArrayList<Room>();
 	
-
+	@OneToMany(mappedBy="team")
+	private List<Answer> answers = new ArrayList<>();
 	
 	public Integer getId() {
 		return id;
@@ -69,6 +71,25 @@ public class Team implements Serializable{
 	public void setTeamUsers(List<User> teamUsers) {
 		this.teamUsers = teamUsers;
 	}
+
+	public List<Room> getTeamRooms() {
+		return teamRooms;
+	}
+
+	public void setTeamRooms(List<Room> teamRooms) {
+		this.teamRooms = teamRooms;
+	}
+
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+	
+	
+	
 	
 	
 	

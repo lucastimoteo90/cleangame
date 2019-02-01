@@ -14,13 +14,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     CSS -->
 
-    <link rel="stylesheet" type="text/css" href="./app.css">
+    <base href="/" />
+    <link rel="stylesheet" type="text/css" href="./lib/app.css">
     
 
-    <base href="/cleangame/" />
+    
 </head>
 
-<body>      
+<body> 
+   
+    <div style="color:magenta" class="usernameFlutuante" id="userremoto1"></div>
+    <div style="color: orangered " class="usernameFlutuante" id="userremoto2"></div>
+    <div style=" " class="usernameFlutuante" id="userremoto3"></div>
+    <div style=" " class="usernameFlutuante" id="userremoto4"></div>
+    <div style=" " class="usernameFlutuante" id="userremoto5"></div>
+    <div style=" " class="usernameFlutuante" id="userremoto6"></div>
+    <div style=" " class="usernameFlutuante" id="userremoto7"></div>
+    <div style=" " class="usernameFlutuante" id="userremoto8"></div>
+    <div style=" " class="usernameFlutuante" id="userremoto9"></div>
+    <div style=" " class="usernameFlutuante" id="userremoto10"></div>
+
     <div class="h-100">
         <div class="h-100" ng-view></div>
     </div>
@@ -41,7 +54,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+
+
     <script type="text/javascript" src="./lib/syntaxhlighter/scripts/XRegExp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
 	<script type="text/javascript" src="./lib/syntaxhlighter/scripts/shCore.js"></script>
 	<script type="text/javascript" src="./lib/syntaxhlighter/scripts/shBrushJava.js"></script>
@@ -73,5 +88,8 @@
     <script type="text/javascript" src="./services/room.service.js"></script>
 	<script type="text/javascript" src="./services/easy-room.service.js"></script>
 	<script type="text/javascript" src="./services/medium-room.service.js"></script>
-	<script type="text/javascript" src="./services/question.service.js"></script>
+    <script type="text/javascript" src="./services/question.service.js"></script>
+    <script type="text/javascript" src="./services/socket.service.js"></script>
+    <script type="text/javascript" src="./services/team.service.js"></script>
+    
     

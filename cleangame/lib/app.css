@@ -41,3 +41,21 @@
      height: 100%;
      width: 100%;
  }
+
+ .usernameFlutuante{
+    font-weight: bold;
+    display: none; 
+    position: fixed; 
+    float: top; 
+    z-index: 5000; 
+ }
+
+ #console {
+    height: 200px;
+    overflow: auto;
+}
+
+.username-msg {color:orange;}
+		.connect-msg {color:green;}
+		.disconnect-msg {color:red;}
+		.send-msg {color:#888}

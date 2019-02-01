@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.demo.domain.Answer;
 import com.demo.domain.Question;
 import com.demo.domain.Room;
+import com.demo.domain.Team;
 import com.demo.domain.User;
 import com.demo.dto.AlternativeDTO;
 import com.demo.dto.ResumeRoomDTO;
@@ -31,10 +32,16 @@ public class RoomService {
 	private QuestionService questionService;
 	
 	@Autowired
+	private TeamService teamService;
+	
+	
+	@Autowired
 	private AnswerService answerService;
 	
 	@Autowired
 	private UserService userService;
+	
+	
 	
 	
 	public List<Room> findAll() {
@@ -50,19 +57,48 @@ public class RoomService {
 	    UserSS userSS = UserService.authenticated();
 		if(userSS == null) {
 			throw new AuthorizationException("Token Inválido");
-		}
-	    
+		}	    
 		User user = userService.findById(userSS.getID());
-		Room room = repository.findById(id).get();
+		Team team = teamService.findById(id);
+		Room room = teamService.findRoomByTeam(id);
 	    
-		List<Answer> answers = answerService.findAnswersUserQuestions(user, room.getQuestions());
-		
-		answerService.delete(answers);
-		
-		
+		List<Answer> answers = answerService.findAnswersTeamQuestions(team, room.getQuestions());
+	
+		answerService.delete(answers);	
 		
 		return room;
 	}
+	
+	public Team createTeam(Integer idRoom, String nameTeam) throws ObjectNotFoundException {
+	    UserSS userSS = UserService.authenticated();
+		if(userSS == null) {
+			throw new AuthorizationException("Token Inválido");
+		}	    
+		User user = userService.findById(userSS.getID());
+		Room room = repository.findById(idRoom).get();
+	    
+		//Adiciona 1 sala (Mapeamento permite mais de uma, para possivel uso futuro);
+    	List<Room> teamRooms = new ArrayList<Room>();
+		
+	 	List<User> teamUsers = new ArrayList<User>();
+		
+		
+		teamRooms.add(room);
+		teamUsers.add(user);
+		
+		Team team = new Team();
+		team.setName(nameTeam);
+		team.setTeamRooms(teamRooms);
+		
+		team = teamService.save(team);		
+		
+		//List<Answer> answers = answerService.findAnswersUserQuestions(user, room.getQuestions());
+	
+		//answerService.delete(answers);	
+		
+		return team;
+	}
+	
 	
 	
 	public AlternativeDTO markAlternative(AlternativeDTO alternative) {
@@ -120,6 +156,29 @@ public class RoomService {
 	}
 
 	public ResumeRoomDTO makeResume(Integer id) {
+		//Mudar pra team :)
+		ResumeRoomDTO resume = new ResumeRoomDTO();
+		UserSS userSS = UserService.authenticated();
+		if(userSS == null) {
+			throw new AuthorizationException("Token Inválido");
+		}	
+		
+		User user = userService.findById(userSS.getID());
+		Team team = teamService.findById(id);
+		Room room = teamService.findRoomByTeam(id);
+		
+		resume.setRoom_id(room.getId());
+		resume.setTotalQuestions(room.getQuestions().size());
+		
+		resume.setHits(answerService.findAnswerCorrectsTeam(team, room));
+		resume.setErrors(answerService.findAnswerIncorrectsTeam(team, room));
+		resume.setSkips(answerService.findAnswerSkipsTeam(team, room));
+		
+		return resume;
+	}
+	
+	public ResumeRoomDTO makeResumeBKP(Integer id) {
+		//Mudar pra team :)
 		ResumeRoomDTO resume = new ResumeRoomDTO();
 		UserSS userSS = UserService.authenticated();
 		if(userSS == null) {

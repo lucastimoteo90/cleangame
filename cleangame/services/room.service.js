@@ -1,4 +1,4 @@
-app.service('$RoomService', ['$http', 'ApiPath', function ($http, ApiPath) {
+app.service('$RoomService', ['$http', 'ApiPath','$TeamService', function ($http, ApiPath,$TeamService) {
 
   
     //Mantem dados do usuario autenticado
@@ -18,6 +18,20 @@ app.service('$RoomService', ['$http', 'ApiPath', function ($http, ApiPath) {
                 Authorization: localStorage.getItem("cleangameToken")
             }
         }
+        return $http.get(ApiPath + '/rooms/'+$TeamService.getActiveTeam().id+'/resume', config).then(function (response) {
+            return response;                         
+        }).catch(function (err) {
+            console.log("Falha ao consultar resumo...")
+            return err;
+        });
+    }
+
+    this.getResumeBkp = function(){
+        var config = {
+            headers: {
+                Authorization: localStorage.getItem("cleangameToken")
+            }
+        }
         return $http.get(ApiPath + '/rooms/'+this.getActiveRoom().id+'/resume', config).then(function (response) {
             return response;                         
         }).catch(function (err) {
@@ -26,13 +40,14 @@ app.service('$RoomService', ['$http', 'ApiPath', function ($http, ApiPath) {
         });
     }
 
+
     this.restart = function(){
         var config = {
             headers: {
                 Authorization: localStorage.getItem("cleangameToken")
             }
         }
-        return $http.get(ApiPath + '/rooms/'+this.getActiveRoom().id+'/restart', config).then(function (response) {
+        return $http.get(ApiPath + '/rooms/'+$TeamService.getActiveTeam().id+'/restart', config).then(function (response) {
             return response;                         
         }).catch(function (err) {
             console.log("Falha ao consultar dica...")
@@ -163,6 +178,27 @@ app.service('$RoomService', ['$http', 'ApiPath', function ($http, ApiPath) {
         });
     }
 
+    /**Especie de seção */
+    this.createTeam = function(){
+        var config = {
+            headers: {
+                Authorization: localStorage.getItem("cleangameToken")
+            }
+        }
+
+        /**Implementação Futura */
+        team = {};
+        team.name = "";
+
+        return $http.post(ApiPath + '/rooms/createteam/'+this.getActiveRoom().id,team,config).then(function(response) {
+            console.log(response)                     
+                                  
+            return response
+        }).catch(function (err) {
+            console.log("ERRO: Falha ao criar team...",err)
+            return err;
+        });
+    }
 
 
    

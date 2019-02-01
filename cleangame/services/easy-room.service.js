@@ -1,4 +1,4 @@
-app.service('$EasyRoomService', ['$http', 'ApiPath', function ($http, ApiPath) {
+app.service('$EasyRoomService', ['$http', 'ApiPath','$TeamService','$sce', function ($http, ApiPath, $TeamService,$sce) {
 
   
     //Mantem dados do usuario autenticado
@@ -15,16 +15,16 @@ app.service('$EasyRoomService', ['$http', 'ApiPath', function ($http, ApiPath) {
 
 
     this.getQuestions = function () {
-        /**
-         * Configura o cabeçalho
-         */
+        /*** Configura o cabeçalho     */
         var config = {
             headers: {
                 Authorization: localStorage.getItem("cleangameToken")
             }
         }
 
-        return $http.get(ApiPath + '/easyroom/'+this.getActiveRoom().id+'/questions/', config).then(function (response) {
+        //console.log("ACTIVE ROOM"+this.getActiveRoom());
+
+        return $http.get(ApiPath + '/easyroom/'+this.getActiveRoom().id+'/questions/'+this.getActiveRoom().team.id, config).then(function (response) {
             return response;                         
         }).catch(function (err) {
             console.log("ERRO: Falha ao obter questão...",err)
@@ -42,7 +42,7 @@ app.service('$EasyRoomService', ['$http', 'ApiPath', function ($http, ApiPath) {
             }
         }
 
-        return $http.get(ApiPath + '/easyroom/'+this.getActiveRoom().id+'/question/', config).then(function (response) {
+        return $http.get(ApiPath + '/easyroom/'+this.getActiveRoom().id+'/question/'+$TeamService.getActiveTeam().id+"/", config).then(function (response) {
             return response;                         
         }).catch(function (err) {
             console.log("ERRO: Falha ao obter questão...",err)

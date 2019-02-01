@@ -7,6 +7,7 @@ import java.util.concurrent.Executor;
 
 import javax.jms.ConnectionFactory;
 
+import org.apache.commons.logging.Log;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,6 +24,13 @@ import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import com.corundumstudio.socketio.AckRequest;
+import com.corundumstudio.socketio.Configuration;
+import com.corundumstudio.socketio.SocketIOClient;
+import com.corundumstudio.socketio.SocketIOServer;
+import com.corundumstudio.socketio.listener.DataListener;
+import com.demo.socket.ChatObject;
 
 //import com.demo.repositories.QuestionRepository;
 //import com.demo.repositories.RoomRepository;
@@ -52,6 +60,9 @@ public class DemoApplication implements CommandLineRunner{
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
 		
+		
+        
+		
 		//JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
 
         // Send a message with a POJO - the template reuse the message converter
@@ -63,40 +74,9 @@ public class DemoApplication implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-	
-    /*
-       Question question = new Question();
-       question.setAsk("Pergunta de Teste");
-       question.setAlternative1("alternative1");
-       question.setAlternative2("alternative2");
-       question.setAlternative3("alternative3");
-       question.setAlternative4("alternative4");
-       question.setRightAnswer(1);
-       
-       Optional<Room> room = roomRepository.findById(1);
-       
-       question.setRoom(room.get());
-       room.get().getQuestions().add(question);
-       //questionRepository.save(question);
-       //roomRepository.save(room);
-       
-       
-       
     	
-/*	   Room r1 = new Room("Teste DB 2");
-	   User u1 = new User(null,"lucastimoteo90", "lucas");
-	   
-	   r1.getAdministrators().addAll(Arrays.asList(u1));
-	   r1.getMembers().addAll(Arrays.asList(u1));
-	   
-	   u1.getRoomsAdministrator().addAll(Arrays.asList(r1));
-	   u1.getRoomsMember().addAll(Arrays.asList(r1));
-	   
-	   roomRepository.saveAll(Arrays.asList(r1));
-	   userRepository.saveAll(Arrays.asList(u1));
-	*/   
 	}
-    
+
     @Bean
     public JmsListenerContainerFactory<?> myFactory(ConnectionFactory connectionFactory,
                                                     DefaultJmsListenerContainerFactoryConfigurer configurer) {
