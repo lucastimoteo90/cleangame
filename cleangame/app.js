@@ -1,9 +1,9 @@
 var app = angular.module('cleangame', ['ngRoute']);
 
 //app.constant('ApiPath', "http://10.42.0.147:8080");
-app.constant('ApiPath', "http://127.0.0.1:8080");
+app.constant('ApiPath', "http://ec2-52-67-255-100.sa-east-1.compute.amazonaws.com:8080");
 
-app.constant('Domain', "http://127.0.0.1:3000");
+app.constant('Domain', "http://ec2-52-67-255-100.sa-east-1.compute.amazonaws.com");
 
 //app.constant('ApiPath', "http://177.105.44.236:8080");
 

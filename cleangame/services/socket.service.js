@@ -3,9 +3,9 @@ app.service('$SocketService', ['$http', 'ApiPath', function ($http, ApiPath) {
     
     //Mantem dados do usuario autenticado
     this.room = {}
-    this.url =  "http://localhost";
+    this.url =  "http://ec2-52-67-255-100.sa-east-1.compute.amazonaws.com/";
     //this.url =  "http://10.42.0.147";
-    this.port = "2000";
+    this.port = "8081";
     this.socket = null;
 
     this.usermail;
