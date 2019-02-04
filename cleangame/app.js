@@ -1,11 +1,15 @@
 var app = angular.module('cleangame', ['ngRoute']);
 
 //app.constant('ApiPath', "http://10.42.0.147:8080");
-app.constant('ApiPath', "http://ec2-52-67-255-100.sa-east-1.compute.amazonaws.com:8080");
-
-app.constant('Domain', "http://ec2-52-67-255-100.sa-east-1.compute.amazonaws.com");
-
 //app.constant('ApiPath', "http://177.105.44.236:8080");
+app.constant('ApiPath', "http://localhost:8080");
+//app.constant('ApiPath', "http://ec2-52-67-255-100.sa-east-1.compute.amazonaws.com:8080");
+
+//app.constant('Domain', "http://ec2-52-67-255-100.sa-east-1.compute.amazonaws.com");
+app.constant('Domain', "localhost");
+
+
+
 
 app.config(function ($routeProvider, $locationProvider) {
   // remove o # da url

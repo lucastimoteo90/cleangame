@@ -24,7 +24,7 @@ app.service('$EasyRoomService', ['$http', 'ApiPath','$TeamService','$sce', funct
 
         //console.log("ACTIVE ROOM"+this.getActiveRoom());
 
-        return $http.get(ApiPath + '/easyroom/'+this.getActiveRoom().id+'/questions/'+this.getActiveRoom().team.id, config).then(function (response) {
+        return $http.get(ApiPath + '/easyroom/'+this.getActiveRoom().id+'/questions/', config).then(function (response) {
             return response;                         
         }).catch(function (err) {
             console.log("ERRO: Falha ao obter questão...",err)

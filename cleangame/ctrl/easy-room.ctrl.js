@@ -33,7 +33,9 @@ app.controller('EasyRoomCtrl', function ($rootScope,Domain,$sce, $location, $sco
 
   //Corrigir
   $scope.room = $RoomService.getActiveRoom();
-  $EasyRoomService.setActiveRoom($RoomService.getActiveRoom());
+  
+  
+  
 
   //Função ativa modo multiplayer na sala
   function multiplayer(){
@@ -44,6 +46,9 @@ app.controller('EasyRoomCtrl', function ($rootScope,Domain,$sce, $location, $sco
   //Registra usuário na sala
   $SocketService.registerUser($rootScope.user);
   $SocketService.registerUserRoom($TeamService.getActiveTeam().id);
+ 
+  
+  
 
 
   //Inicia captura da posição do mouse e envia servidor socket
@@ -136,7 +141,7 @@ app.controller('EasyRoomCtrl', function ($rootScope,Domain,$sce, $location, $sco
      
   }
 
-  multiplayer();
+
 
   $scope.panel = {}
   $scope.panel.time = 0;
@@ -296,24 +301,40 @@ app.controller('EasyRoomCtrl', function ($rootScope,Domain,$sce, $location, $sco
 
 
 
-  setInterval(function(){
-    $scope.$apply(function () {
-      $scope.panel.time++;
-      if($scope.panel.time == 40){
-        $scope.getTip();
-      }
-      if($scope.panel.time == 80){
-        $scope.getTip();
-      }
-
-
-  });
-   
-  },1000)
-
   
- loadQuestion();
- loadResume();
+
+
+  if( $rootScope.createRoom){
+    
+    $rootScope.createRoom = false;
+  }else{
+  
+    $EasyRoomService.setActiveRoom($RoomService.getActiveRoom());
+
+    setInterval(function(){
+      $scope.$apply(function () {
+        $scope.panel.time++;
+        if($scope.panel.time == 40){
+          $scope.getTip();
+        }
+        if($scope.panel.time == 80){
+          $scope.getTip();
+        }
+  
+  
+    });
+     
+    },1000)  
+
+    multiplayer();
+
+    loadQuestion();
+    loadResume();
+
+    
+  }
+  
+
   //Carregamento padrão
   //$rootScope.loadTemplate('./views/productsList.template.html');
 

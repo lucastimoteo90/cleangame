@@ -68,6 +68,8 @@ app.controller('RoomsCtrl', function ($rootScope, $location, $scope, $RoomServic
 
 
   $scope.createNewEasyRoom = function(){
+    $TeamService.setActiveTeam({id:null})
+    $rootScope.createRoom = true;
     $("#modalNewRoom").modal('hide');
     $rootScope.loadMainContent('rooms/easy/create');
   }
