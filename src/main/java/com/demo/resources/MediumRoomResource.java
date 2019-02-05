@@ -57,9 +57,9 @@ public class MediumRoomResource {
 	}
 	
 	/*{id} room id -> obtem questão do usuário;*/
-	@RequestMapping(value="/{id}/question",method=RequestMethod.GET)
-	public ResponseEntity <Question> getQuestion(@PathVariable Integer id){
-		return ResponseEntity.ok().body(service.getQuestion(id));
+	@RequestMapping(value="/{id}/question/{idteam}/",method=RequestMethod.GET)
+	public ResponseEntity <Question> getQuestion(@PathVariable Integer id, @PathVariable Integer idteam){
+		return ResponseEntity.ok().body(service.getQuestion(id,idteam));
 	}	
 		
 	/*

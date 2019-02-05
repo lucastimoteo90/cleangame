@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +69,23 @@ public class ReceiverMakeQuestions {
 			question.setFake2("fake1");
 			question.setFake3("fake1");
 			
+			
+			/*gera md5*/
+			
+			MessageDigest md;
+			try {
+				md = MessageDigest.getInstance("MD5");
+				md.update(pmderror.getDescription().getBytes(),0,pmderror.getDescription().length());
+				// System.out.println("MD5: "+new BigInteger(1,md.digest()).toString(16));
+				
+				question.setMd5correct(new BigInteger(1,md.digest()).toString(16));
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+						
+			
+			//question.setMd5correct(pmderror.getDescription());
 			question.setTip(pmderror.getRule());
 			question.setTip(pmderror.getRule_set());
 			

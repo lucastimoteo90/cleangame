@@ -22,6 +22,7 @@ import com.demo.domain.GitClone;
 import com.demo.domain.MediumRoom;
 import com.demo.domain.Question;
 import com.demo.domain.Room;
+import com.demo.domain.Team;
 import com.demo.domain.User;
 import com.demo.repositories.AnswerRepository;
 import com.demo.repositories.RoomRepository;
@@ -43,6 +44,9 @@ public class MediumRoomService {
 	
 	@Autowired
 	private AnswerRepository answerRepository;
+	
+	@Autowired
+	private TeamService teamService;
 
 	public MediumRoom insert(MediumRoom room) {
 		room.setId(null);
@@ -72,14 +76,16 @@ public class MediumRoomService {
 		return room;
 	}
 	
-	public Question getQuestion(Integer id) {
+	public Question getQuestion(Integer id, Integer idTeam) {
+		
 		UserSS userSS = UserService.authenticated();
 		if(userSS == null ) {
 			throw new AuthorizationException("Token Inválido");
 		}
 	
 		User user = userService.findById(userSS.getID());
-				
+		Team team = teamService.findById(idTeam);
+		
 		Optional<Room> room = repository.findById(id);
 	    		
 		
@@ -90,12 +96,13 @@ public class MediumRoomService {
 			
 		for(Question question: roomQuestions){
 			//Procurar se existe answer para question
-		    if(answerRepository.findByUserAndQuestion(user, question).size() == 0) {
+		    if(answerRepository.findByTeamAndQuestion(team, question).size() == 0) {
 				Answer newAnswer = new Answer();
 				newAnswer.setQuestion(question);
 				newAnswer.setUser(user);
 				newAnswer.setTips(0);
 				newAnswer.setStart(new Timestamp(System.currentTimeMillis()));
+				newAnswer.setTeam(team);
 				newAnswer = answerRepository.save(newAnswer);
 				question.setAnswer(newAnswer.getId());
 				question.makeAlternatives();
@@ -103,8 +110,8 @@ public class MediumRoomService {
 			}
 			
 		    //Se existe em aberto
-		    if(answerRepository.findByUserAndQuestionAndEndIsNull(user, question).size() > 0){
-		    	question.setAnswer(answerRepository.findByUserAndQuestionAndEndIsNull(user, question).get(0).getId());
+		    if(answerRepository.findByTeamAndQuestionAndEndIsNull(team, question).size() > 0){
+		    	question.setAnswer(answerRepository.findByTeamAndQuestionAndEndIsNull(team, question).get(0).getId());
 		    	question.makeAlternatives();
 		    	return question;
 		    }				

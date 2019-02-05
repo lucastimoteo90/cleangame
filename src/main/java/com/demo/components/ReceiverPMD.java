@@ -72,7 +72,7 @@ public class ReceiverPMD {
 	}
 
 	private void makeReport(String roleName, String reportName) {
-		String[] commands = { "/home/lucas/Softwares/pmd-bin-6.6.0/bin/run.sh", "pmd", "-d", this.getDirGit(), "-f",
+		String[] commands = { "/home/lucas/pmd-bin-6.11.0/bin/run.sh", "pmd", "-d", this.getDirGit(), "-f",
 				"csv", "-R", roleName, "-version", "1.7", "-language", "java", "-r",
 				dirGit + "/" + reportName + "_report.csv" };
 		Process proc;

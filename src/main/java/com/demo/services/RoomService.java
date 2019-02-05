@@ -76,6 +76,7 @@ public class RoomService {
 		}	    
 		User user = userService.findById(userSS.getID());
 		Room room = repository.findById(idRoom).get();
+		
 	    
 		//Adiciona 1 sala (Mapeamento permite mais de uma, para possivel uso futuro);
     	List<Room> teamRooms = new ArrayList<Room>();
@@ -105,15 +106,25 @@ public class RoomService {
 		//Obtem question
 		Question question = questionService.findById(alternative.getQuestion());
 		Answer answer = answerService.findById(alternative.getAnswer());
+		
+		
+		System.out.println("QUESTION"+question.getMd5correct());
+	    System.out.println("ANSWER"+answer.getQuestion().getAsk());
+		
+	    
+		
 		if(question.getMd5correct().equals(alternative.getMd5answer())){
 			alternative.setCorrect(true);
 			answer.setCorrect(true);
 		}else {
 			alternative.setCorrect(false);
-			answer.setCorrect(false);
-		}	    
+		    answer.setCorrect(false);
+		}	  
+		
+		
 	    answer.setEnd(new Timestamp(System.currentTimeMillis()));
 	    answerService.save(answer);	
+		
 		
 		return alternative;
 	}

@@ -98,8 +98,12 @@ public class QuestionService {
 		Question question = repository.findById(idQuestion).get();
 		Team team = teamService.findById(idteam);
 		
+		System.out.println("Usuário: "+user.getName());
+		System.out.println("Question: "+question.getAsk());
+		System.out.println("Team: "+team.getId());
 		
 		Answer answer = answerRepository.findByTeamAndQuestion(team, question).get(0);
+		System.out.println("Answer: "+answer.getQuestion().getAsk());
 		answer.setSkip(true);
 	    answer.setEnd(new Timestamp(System.currentTimeMillis()));
 		answerRepository.save(answer);	
