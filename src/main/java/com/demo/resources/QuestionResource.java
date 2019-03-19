@@ -54,6 +54,25 @@ public class QuestionResource {
 		return ResponseEntity.ok().body(tip);
 	}
 	
+	@RequestMapping(value="/{id}/{idteam}/tip1",method=RequestMethod.GET)
+	public ResponseEntity<TipDTO> getTip1(@PathVariable Integer id, @PathVariable Integer idteam){
+		TipDTO tip = service.getTip1(id, idteam);
+		return ResponseEntity.ok().body(tip);
+	}
+	
+	@RequestMapping(value="/{id}/{idteam}/tip2",method=RequestMethod.GET)
+	public ResponseEntity<TipDTO> getTip2(@PathVariable Integer id, @PathVariable Integer idteam){
+		TipDTO tip = service.getTip2(id, idteam);
+		return ResponseEntity.ok().body(tip);
+	}
+	
+	@RequestMapping(value="/{id}/{idteam}/tip3",method=RequestMethod.GET)
+	public ResponseEntity<TipDTO> getTip3(@PathVariable Integer id, @PathVariable Integer idteam){
+		TipDTO tip = service.getTip3(id, idteam);
+		return ResponseEntity.ok().body(tip);
+	}
+	
+	
 	@RequestMapping(value="/{id}/{idteam}/skip",method=RequestMethod.GET)
 	public ResponseEntity<SkipDTO> skip(@PathVariable Integer id, @PathVariable Integer idteam){
 		SkipDTO skip = service.skip(id, idteam);

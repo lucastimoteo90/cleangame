@@ -43,6 +43,14 @@ public class TeamService {
 		return repository.findById(id).get();
 	}
 	
+	public List<Team> findByUser(List<User> users) {
+	 return repository.findByteamUsers(users);
+	}
+	
+	public List<Team> findByUserAndRoom(List<User> users, List<Room>rooms) {
+		 return repository.findByteamUsersAndTeamRooms(users, rooms);
+		}
+	
 	/*
 	public Team insert(Team team){
 		UserSS userSS = UserService.authenticated();

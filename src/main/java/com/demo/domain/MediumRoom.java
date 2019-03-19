@@ -58,7 +58,28 @@ public class MediumRoom extends Room{
 	public List<PMDErrors> getPmdErrors() {
 		return pmdErrors;
 	}
-
+    
+	/*Retorna somente arquivos com um unico erro*/
+	public List<PMDErrors> getPmdErrorsUniqueErrorInFile() {
+		/*Super gambiarra de emergencia*/
+		List<PMDErrors> pmdErrorsUnique = new ArrayList<>();
+		
+		for(PMDErrors pmdError :pmdErrors){
+			int countRepeats = 0;
+			for(PMDErrors pmdError2 :pmdErrors){
+			  if(pmdError.getFile_dir().equals(pmdError2.getFile_dir())) {
+				  countRepeats++;
+			  }	
+			}
+			if(countRepeats ==1) {
+				pmdErrorsUnique.add(pmdError);
+			}
+			
+		}
+		
+		return pmdErrorsUnique;
+	}
+	
 	public void setPmdErrors(List<PMDErrors> pmdErrors) {
 		this.pmdErrors = pmdErrors;
 	}	

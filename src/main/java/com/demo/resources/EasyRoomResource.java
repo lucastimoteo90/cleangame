@@ -19,8 +19,6 @@ import com.demo.domain.Question;
 import com.demo.domain.Room;
 import com.demo.services.EasyRoomService;
 
-
-
 @RestController
 @RequestMapping(value="easyroom")
 public class EasyRoomResource {
@@ -63,8 +61,6 @@ public class EasyRoomResource {
 		Room room = service.findById(id);
 		return ResponseEntity.ok().body(service.insertQuestion(room, question));		
 	}
-	
-	
 	
 	//Limitação do AngulaJS1 utilizando post para delete
 	@RequestMapping(value="/delete/{id}",method=RequestMethod.POST)

@@ -45,6 +45,10 @@ public class Answer implements Serializable{
 		
 	private Integer tips;
 	
+	private Boolean tip1;
+	private Boolean tip2;
+	private Boolean tip3;
+	
 	private Boolean skip;
 	
 		
@@ -129,6 +133,31 @@ public class Answer implements Serializable{
 
 	
 	
+	
+	public Boolean getTip1() {
+		return tip1;
+	}
+
+	public void setTip1(Boolean tip1) {
+		this.tip1 = tip1;
+	}
+
+	public Boolean getTip2() {
+		return tip2;
+	}
+
+	public void setTip2(Boolean tip2) {
+		this.tip2 = tip2;
+	}
+
+	public Boolean getTip3() {
+		return tip3;
+	}
+
+	public void setTip3(Boolean tip3) {
+		this.tip3 = tip3;
+	}
+
 	public Team getTeam() {
 		return team;
 	}

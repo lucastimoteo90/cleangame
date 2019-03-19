@@ -39,6 +39,7 @@ public class Question implements Serializable{
 	
 	private String tip;
 	private String tip2;
+	private String tip3;
 	
 	@Transient
 	private List<String> alternatives = new ArrayList<String>();
@@ -224,6 +225,16 @@ public class Question implements Serializable{
 	}
 
 	
+
+	public String getTip3() {
+		return tip3;
+	}
+
+
+	public void setTip3(String tip3) {
+		this.tip3 = tip3;
+	}
+
 
 	public String getFilename() {
 		return filename;

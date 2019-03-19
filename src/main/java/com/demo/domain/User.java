@@ -35,7 +35,6 @@ public class User implements Serializable{
 	private String passwd;
 	private String name;
 	
-	
 	@ManyToMany(mappedBy="administrators")
 	@JsonIgnore
 	private List<Room> roomsAdministrator = new ArrayList<Room>();

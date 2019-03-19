@@ -36,6 +36,8 @@ public abstract class Room implements Serializable{
 	
 	private String gitUrl;
 	
+	private Boolean open;
+	
 	@OneToMany(mappedBy="room")
 	@JsonIgnore
 	private List<Question> questions = new ArrayList<Question>();
@@ -101,6 +103,15 @@ public abstract class Room implements Serializable{
 		this.name = name;
 	}
     
+	
+	public Boolean getOpen() {
+		return open;
+	}
+
+	public void setOpen(Boolean open) {
+		this.open = open;
+	}
+
 	
 	public boolean isPublic() {
 		return isPublic;

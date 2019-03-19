@@ -85,6 +85,76 @@ public class QuestionService {
 			return tip;
 	}
 	
+	
+	public TipDTO getTip1(Integer idQuestion, Integer idteam) {
+
+		TipDTO tip = new TipDTO();
+		
+		UserSS userSS = UserService.authenticated();
+		if(userSS == null ) {
+			throw new AuthorizationException("Token Inválido");
+		}
+	
+		User user = userService.findById(userSS.getID());
+		Question question = repository.findById(idQuestion).get();
+        Team team = teamService.findById(idteam);
+		//Mudar pra team
+		
+		Answer answer = answerRepository.findByTeamAndQuestion(team, question).get(0);
+		answer.setTip1(true);
+	    answerRepository.save(answer);	
+		
+	    tip.setQuestion_id(question.getId());
+	    tip.setTip(question.getTip());
+		return tip;
+	}
+	
+	public TipDTO getTip2(Integer idQuestion, Integer idteam) {
+
+		TipDTO tip = new TipDTO();
+		
+		UserSS userSS = UserService.authenticated();
+		if(userSS == null ) {
+			throw new AuthorizationException("Token Inválido");
+		}
+	
+		User user = userService.findById(userSS.getID());
+		Question question = repository.findById(idQuestion).get();
+        Team team = teamService.findById(idteam);
+		//Mudar pra team
+		
+		Answer answer = answerRepository.findByTeamAndQuestion(team, question).get(0);
+		answer.setTip2(true);
+	    answerRepository.save(answer);	
+		
+	    tip.setQuestion_id(question.getId());
+	    tip.setTip(question.getTip2());
+		return tip;
+	}
+	
+	public TipDTO getTip3(Integer idQuestion, Integer idteam) {
+
+		TipDTO tip = new TipDTO();
+		
+		UserSS userSS = UserService.authenticated();
+		if(userSS == null ) {
+			throw new AuthorizationException("Token Inválido");
+		}
+	
+		User user = userService.findById(userSS.getID());
+		Question question = repository.findById(idQuestion).get();
+        Team team = teamService.findById(idteam);
+		//Mudar pra team
+		
+		Answer answer = answerRepository.findByTeamAndQuestion(team, question).get(0);
+		answer.setTip2(true);
+	    answerRepository.save(answer);	
+		
+	    tip.setQuestion_id(question.getId());
+	    tip.setTip(question.getTip3());
+		return tip;
+	}
+	
 	public SkipDTO skip(Integer idQuestion, Integer idteam) {
 
 		SkipDTO skip = new SkipDTO();

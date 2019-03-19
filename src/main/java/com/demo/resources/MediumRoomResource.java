@@ -42,8 +42,7 @@ public class MediumRoomResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(room.getId()).toUri();
 			return ResponseEntity.created(uri).body(room);
 	}
-	
-	
+		
 	@RequestMapping(value="{id}/status/",method=RequestMethod.GET)
 	public ResponseEntity<?> findStatusById(@PathVariable Integer id){
 		MediumRoom room = (MediumRoom)service.findById(id);

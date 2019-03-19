@@ -43,8 +43,8 @@ public class ReceiverPMD {
 		/** Obtem o diretório onde está o codigo git */
 		this.setDirGit("./repsgit/" + gitClone.getUserid() + "/" + gitClone.getRoom().getId());
 
-		this.pmdReportJavaBasic();
-		this.pmdReportCodesize();
+		//this.pmdReportJavaBasic();
+		//this.pmdReportCodesize();
 		this.pmdReportDesign();
         		
 		mediumRoomService.setCompletePMDStatus(this.getGitClone());
@@ -62,7 +62,7 @@ public class ReceiverPMD {
 	}
 
 	private void pmdReportDesign() {
-		makeReport("rulesets/java/design.xml", "design");
+		makeReport("category/java/design.xml", "design");
 		databaseImportCSV("design");
 	}
 
@@ -72,7 +72,7 @@ public class ReceiverPMD {
 	}
 
 	private void makeReport(String roleName, String reportName) {
-		String[] commands = { "/home/ubuntu/pmd-bin-6.11.0/bin/run.sh", "pmd", "-d", this.getDirGit(), "-f",
+		String[] commands = { "/home/lucas/pmd-bin-6.11.0/bin/run.sh", "pmd", "-d", this.getDirGit(), "-f",
 				"csv", "-R", roleName, "-version", "1.7", "-language", "java", "-r",
 				dirGit + "/" + reportName + "_report.csv" };
 		Process proc;
@@ -108,6 +108,12 @@ public class ReceiverPMD {
 			int lineNumber = 0;
 			while ((nextLine = reader.readNext()) != null) {
 				if (lineNumber > 0) {
+				 if( nextLine[7].equals("ExcessiveMethodLength")  
+				    || nextLine[7].equals("GodClass")
+				    || nextLine[7].equals("DataClass")
+				    || nextLine[7].equals("ExcessiveParameterList")
+				    || nextLine[7].equals("TooManyMethods")
+				  ) {
 					PMDErrors pmdErrors = new PMDErrors();
 					pmdErrors.setJpackage(nextLine[1]);
 					pmdErrors.setFile_dir(nextLine[2]);
@@ -118,6 +124,7 @@ public class ReceiverPMD {
 					pmdErrors.setRule_set(nextLine[7]);
 					pmdErrors.setRoom(this.getGitClone().getRoom());
 					pmdErrorService.save(pmdErrors);
+				 }
 				}else{
 					lineNumber++;
 				}

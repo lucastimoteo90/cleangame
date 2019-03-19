@@ -47,6 +47,21 @@ public class RoomService {
 	public List<Room> findAll() {
 		return repository.findAll();
 	}
+	
+	public Room open(Integer id) {
+		Room room = repository.findById(id).get();
+		room.setOpen(true);
+		repository.save(room);		
+		return room;
+	}
+	
+	public Room close(Integer id) {
+		Room room = repository.findById(id).get();
+		room.setOpen(false);
+		repository.save(room);		
+		return room;
+	}
+	
 
 	public Room findById(Integer id) throws ObjectNotFoundException {
 	    Optional<Room> obj = repository.findById(id);
@@ -77,27 +92,38 @@ public class RoomService {
 		User user = userService.findById(userSS.getID());
 		Room room = repository.findById(idRoom).get();
 		
-	    
+			    
 		//Adiciona 1 sala (Mapeamento permite mais de uma, para possivel uso futuro);
-    	List<Room> teamRooms = new ArrayList<Room>();
-		
+    	List<Room> teamRooms = new ArrayList<Room>();		
 	 	List<User> teamUsers = new ArrayList<User>();
 		
 		
 		teamRooms.add(room);
 		teamUsers.add(user);
 		
-		Team team = new Team();
-		team.setName(nameTeam);
-		team.setTeamRooms(teamRooms);
-		
-		team = teamService.save(team);		
+		//Gambiarra para não registrar mais de um team POR SALA para 
+		//o mesmo usuário, especifico para primeiro esperimento.
+		if(teamService.findByUserAndRoom(teamUsers, teamRooms).size() > 0) {
+			 Team team = teamService.findByUserAndRoom(teamUsers,teamRooms).get(0);
+			 //Clear json
+			 team.setTeamRooms(null);
+			 team.setTeamUsers(null);
+			 team.setAnswers(null);
+			 return team;
+		}else {		
+			Team team = new Team();
+			team.setName(nameTeam);
+			team.setTeamRooms(teamRooms);
+			team.setTeamUsers(teamUsers);
+			team = teamService.save(team);
+			return team;
+		}
 		
 		//List<Answer> answers = answerService.findAnswersUserQuestions(user, room.getQuestions());
 	
 		//answerService.delete(answers);	
 		
-		return team;
+		
 	}
 	
 	

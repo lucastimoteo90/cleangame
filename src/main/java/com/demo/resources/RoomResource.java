@@ -84,6 +84,15 @@ public class RoomResource {
 		return ResponseEntity.ok().body(alternative);
 	}
 	
+	@RequestMapping(value="/open/{id}",method=RequestMethod.POST)
+	public ResponseEntity<Room> open(@PathVariable Integer id){
+		return ResponseEntity.ok().body( service.open(id));
+	}
+	
+	@RequestMapping(value="/close/{id}",method=RequestMethod.POST)
+	public ResponseEntity<Room> close(@PathVariable Integer id){
+		return ResponseEntity.ok().body( service.close(id));
+	}
 	
 	@RequestMapping(value="/createteam/{id}",method=RequestMethod.POST)
 	public ResponseEntity<Team> createTeam(@PathVariable Integer id, @RequestBody Team team){

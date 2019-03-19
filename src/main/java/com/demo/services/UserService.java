@@ -24,9 +24,11 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repository;
+	
 	@Autowired
 	private RoomRepository repositoryRoom;
 	
+	@Autowired RoomService roomService;
 
 	public static UserSS authenticated() {
 		try {
@@ -91,7 +93,21 @@ public class UserService {
 	public User insert(User user) {
 		user.setId(null);
 		user.setPasswd(bcrypt.encode(user.getPasswd()).toString());
-		return repository.save(user);
+		
+		//Adiciona usuário como membro de todas as salas existentes;
+		List<Room> rooms = roomService.findAll();
+			
+		user = repository.save(user);
+		
+		for(Room room: rooms){
+			user.getRoomsMember().add(room);
+			room.getMembers().add(user);
+			repositoryRoom.save(room);			
+		}
+		
+		user = repository.save(user);
+		
+		return user;
 	}
 	
 	public User subscribeInRoom(Integer roomId) {
